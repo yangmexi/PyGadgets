@@ -1,2 +1,2 @@
 # PyGadgets
-some handy python scripts for daily works
+Some handy python scripts for daily work.
