@@ -10,8 +10,15 @@ parser.add_argument("-d", "--dir", help="Directory of the files")
 args = parser.parse_args()
 
 
-def remove_extra_newlines(raw):
-    clean = re.sub(r'\n\s*\n', '\n\n', raw)
+def remove_extra_newlines(fp):
+    with open(fp, "r") as f:
+        lines = f.readlines()
+        new_lines = []
+        for line in lines:
+            line = line.strip()
+            new_lines.append(line)
+    raw_text = '\n'.join(new_lines)
+    clean = re.sub(r'\n\s*\n', '\n\n', raw_text)
     return clean
 
 
@@ -30,9 +37,8 @@ def main():
     else:
         output_file = os.path.join(args.dir, args.output)
 
-    with open(fp, "r") as f:
-        raw_text = f.read()
-    text = remove_extra_newlines(raw_text)
+    text = remove_extra_newlines(fp)
+
     with open(output_file, "w") as f:
         f.write(text)
 
